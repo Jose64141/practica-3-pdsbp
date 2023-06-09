@@ -19,20 +19,25 @@ public class BookController : ControllerBase
     [HttpGet("/all-books")]
     public IActionResult AllBooks()
     {
-        List<BookDto> result = new List<BookDto>();
+        List<BookResponseDto> result = new List<BookResponseDto>();
         List<Book> books = _context.Books.ToList();
         foreach (var book in books)
         {
-            BookDto bookInfo = new BookDto();
-            bookInfo.name = book.Name;
-            bookInfo.description = book.Description;
-            var reserves =   _context.Reserves.Where(reserve => reserve.BookId == book.Id).ToList();
-            foreach (var reserve in reserves)
-            {
-                bookInfo.reservedBy.Append(reserve.User);
-            }
+            BookResponseDto bookResponseInfo = new BookResponseDto();
+            bookResponseInfo.Name = book.Name;
+            bookResponseInfo.Description = book.Description;
+            bookResponseInfo.ReservedBy = _context.Reserves
+                .Where(reserve => reserve.BookId == book.Id)
+                .Select(reserve => new UserDto
+                {
+                    Id = reserve.User.Id,          
+                    Name = reserve.User.Name,      
+                    Faculty = reserve.User.Faculty
+                })
+                .Distinct()
+                .ToList();
 
-            result.Append(bookInfo);
+            result.Add(bookResponseInfo);
         }
         return Ok(result);
     }

@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "04796d8c-6f1e-4b50-951a-883c9479e65b",
+		"name": "Practica 3 PDSBP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5003/all-users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"all-users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Books",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:5003/all-books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"all-books"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

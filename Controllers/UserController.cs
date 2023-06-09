@@ -19,25 +19,32 @@ public class UserController : ControllerBase
     [HttpGet("/all-users")]
     public IActionResult AllUsers()
     {
-        List<UserDto> result = new List<UserDto>();
+        List<UserResponseDto> result = new List<UserResponseDto>();
         List<User> users = _context.Users.ToList();
         foreach (var user in users)
         {
-            UserDto userData = new UserDto();
-            userData.name = user.Name;
-            userData.faculty = user.Faculty;
+            UserResponseDto userResponseData = new UserResponseDto();
+            userResponseData.Name = user.Name;
+            userResponseData.Faculty = user.Faculty;
             var lastReserveDate = _context.Reserves.Where(reserve => reserve.UserId == user.Id)
                 .OrderByDescending(reserve => reserve.Date).ToList();
-             if(lastReserveDate.Count >0) userData.date_last_reserve =lastReserveDate[0].Date;
+             if(lastReserveDate.Count >0) userResponseData.lastReserveDate =lastReserveDate[0].Date;
              int count = _context.Reserves.Where(reserve => reserve.UserId == user.Id && reserve.Date > DateTime.Now.AddMonths(-1)).Count();
-             userData.cantLastReserve = count;
-             var reserves =   _context.Reserves.Where(reserve => reserve.UserId == user.Id).ToList();
-             foreach (var reserve in reserves)
-             {
-                 userData.reserves.Append(reserve.Book);
-             }
+             userResponseData.LastMonthReserveQty = count;
+             userResponseData.Reserves =   _context.Reserves
+                 .Where(reserve => reserve.UserId == user.Id)
+                 
+                 .Select(reserve => new BookDto
+                 {
+                     Id = reserve.Book.Id,
+                     Name = reserve.Book.Name,
+                     Code = reserve.Book.Code,
+                     Description = reserve.Book.Description
+                 })
+                 .Distinct()
+                 .ToList();
 
-             result.Append(userData);
+             result.Add(userResponseData);
         }
         return Ok(result);
     }
