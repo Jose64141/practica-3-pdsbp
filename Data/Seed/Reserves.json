@@ -1,0 +1,10 @@
+﻿[{"id":1,"bookId":3,"userId":3,"date":"2023-01-17T23:07:22Z"},
+  {"id":2,"bookId":8,"userId":2,"date":"2023-04-01T21:13:14Z"},
+  {"id":3,"bookId":9,"userId":3,"date":"2023-05-20T04:10:47Z"},
+  {"id":4,"bookId":6,"userId":3,"date":"2023-05-10T22:24:58Z"},
+  {"id":5,"bookId":10,"userId":2,"date":"2022-07-07T16:08:59Z"},
+  {"id":6,"bookId":3,"userId":1,"date":"2023-03-07T07:52:53Z"},
+  {"id":7,"bookId":9,"userId":3,"date":"2022-06-30T18:40:25Z"},
+  {"id":8,"bookId":9,"userId":4,"date":"2022-10-08T10:46:48Z"},
+  {"id":9,"bookId":8,"userId":3,"date":"2023-04-23T04:39:23Z"},
+  {"id":10,"bookId":1,"userId":1,"date":"2023-06-05T03:20:34Z"}]
